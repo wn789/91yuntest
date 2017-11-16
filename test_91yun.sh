@@ -211,7 +211,7 @@ bdtest()
 		apt-get -y install python
 	fi
 	echo "===开始测试带宽===" | tee -a $logfilename
-	wget --no-check-certificate https://raw.githubusercontent.com/wn789/speedtest-cli/master/speedtest_cli.py 1>/dev/null 2>&1
+	wget --no-check-certificate https://raw.githubusercontent.com/91yun/speedtest-cli/master/speedtest_cli.py 1>/dev/null 2>&1
 	python speedtest_cli.py --share | tee -a $logfilename
 	echo -e "===带宽测试结束==\n\n" | tee -a $logfilename
 	rm -rf speedtest_cli.py
@@ -317,7 +317,7 @@ benchtest()
 		echo "UnixBench5.1.3.tgz [found]"
 	else
 		echo "UnixBench5.1.3.tgz not found!!!download now..."
-		if ! wget -c https://github.com/wn789/91yuntest/raw/master/UnixBench5.1.3.tgz; then
+		if ! wget -c http://lamp.teddysun.com/files/UnixBench5.1.3.tgz; then
 			echo "Failed to download UnixBench5.1.3.tgz, please download it to ${cur_dir} directory manually and try again."
 			exit 1
 		fi

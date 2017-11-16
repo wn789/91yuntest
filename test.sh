@@ -61,12 +61,12 @@ bt="benchtest"
 if [[ $_included_benchmarks == *$bt* ]]
 then
     apt-get >/dev/null 2>&1
-	[ $? -le '1' ] && ( apt-get update | apt-get -y install curl mtr virt-what python perl automake autoconf time make gcc gdb )
+	[ $? -le '1' ] && ( apt-get update | apt-get -y install curl mtr-tiny virt-what python perl automake autoconf time make gcc gdb )
 	yum >/dev/null 2>&1
 	[ $? -le '1' ] && yum -y install which sed curl mtr virt-what python make gcc gcc-c++ gdbautomake autoconf time perl-Time-HiRes perl
 else
     apt-get >/dev/null 2>&1
-	[ $? -le '1' ] && ( apt-get update | apt-get -y install curl mtr virt-what python )
+	[ $? -le '1' ] && ( apt-get update | apt-get -y install curl mtr-tiny virt-what python )
 	yum >/dev/null 2>&1
 	[ $? -le '1' ] && yum -y install which sed curl mtr virt-what python
 fi
@@ -90,7 +90,7 @@ arr=(${_included_benchmarks//,/ })
 #下载执行相应的代码
 for i in ${arr[@]}    
 do 
-	wget -q --no-check-certificate https://raw.githubusercontent.com/wn789/91yuntest/test/test_code/${i}.sh
+	wget -q --no-check-certificate https://raw.githubusercontent.com/91yun/91yuntest/test/test_code/${i}.sh
     . ${dir}/91yuntest/${i}.sh
 	eval ${i}
 done    

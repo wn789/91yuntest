@@ -1,50 +1,39 @@
-# 服务器网络测试一键包
+# 91yun服务器测试一键包介绍
 
-是91yun制作的Linux服务器IO测试、带宽测试、下载测试、路由测试、回程路由测试、全国Ping测试、国外Ping测试、UnixBench跑分测试一键测试包。可以一个命令完成服务器全方位的测试，再也不用担心被不良销售商坑了。下面是蜗牛789之前介绍关于Linux服务器性能测试的文章：
+一键包主要是为了让大家快速对服务器的基本状况有一个了解。考虑到天朝的网络出口问题，所以这个一键包更加偏向网络的测试。
 
-如何对VPS进行性能测试及UnixBench跑分工具使用教程https://www.wn789.com/3620.html
+影响测试耗时主要是下载，整个测试如果是能跑满100M带宽的话，应该在20分钟-30分钟。但如果只有几百k下载速度的话，就要耗很长时间了，所以如果大家看到测试卡在了下载测试，希望大家耐心等候。
 
-Linux系统信息/IO读写/下载速度一键测试脚本bench.sh https://www.wn789.com/6975.html
+测试结果存在当前目录的test91yun.log。大家可以用vim或者cat看，同时也会生成html的页面，方便大家查看和分享。具体html页面的样式参考以下内容。
 
-Linux系统VPS带宽测速脚本 Speedtest Linux测速工具 https://www.wn789.com/6943.html
+# 使用方法：
 
-# 一、完整测试代码
-wget -N --no-check-certificate https://raw.githubusercontent.com/wn789/91yuntest/master/test.sh
-bash test.sh -i "io,bandwidth,download,traceroute,backtraceroute,allping,gotoping,benchtest" -u
+## 普通模式：
 
-上面代码是完整测试代码。意思是只要运行上面代码就能一键实现服务器IO测试、带宽测试、下载测试、路由测试、回程路由测试、全国Ping测试、国外Ping测试、UnixBench跑分测试。那是不是可以只选择其中几项自己想测试的项目进行测试呢？Linux服务器性能测试一键包作者很贴心，确实可以根据自己需要进行选择。上面代码中"io,bandwidth,download,traceroute,backtraceroute,allping,gotoping,benchtest"指的就是测试项目，所以项目可以根据自己需要进行删减。下面蜗牛介绍下分别指的是什么内容。
+    wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/91yuntest/master/test_91yun.sh && bash test_91yun.sh
+普通模式就是之前的测试常规内容。测试输出结果请参考：普通模式结果样式参考
 
-1、io——IO测试，通过DD命令来测试服务器的平均IO水平。
+## 简单模式：
 
-2、bandwidth——带宽测试，使用speedtest来测试服务器的上传和下载带宽。
+    wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/91yuntest/master/test_91yun.sh && bash test_91yun.sh s
+简单模式的测试包含：常规系统参数检测，带宽测试，IO测试和全国ping测试。测试输出结果请参考：简单模式结果样式参考
 
-3、download——下载测试，使用wget来测试到世界各地的下载速度，如果服务器带宽小于10M的话谨慎使用。
+主要因为普通模式的下载测试和路由测试有些耗时，有时大家可能只需要快速获得这台服务器的参数，带宽，io和延迟是多少。那么简单模式可以节省大量的时间。如果需要进一步的信息则可以使用普通模式。
 
-4、traceroute——路由测试，从国内部分节点到测试服务器的路由线路。
+相比普通模式，就是在命令最后加个s参数： bash test_91yun.sh s
 
-5、backtraceroute——回程路由测试，测试服务器到国内部分节点的回程路由线路。
+## 完全模式：
 
-6、allping——全国Ping测试，全国各地到测试服务器的Ping值。
+    wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/91yuntest/master/test_91yun.sh && bash test_91yun.sh a
+完全模式相比普通模式多了unixbench的测试，测试输出结果请参考：完全模式结果样式参考
 
-7、gotoping——国外Ping测试，测试服务器到日韩美欧等地域的ping值。
+相比普通模式，就是在命令最后加个a参数： bash test_91yun.sh a
 
-8、benchtest——UnixBench跑分测试，该测试耗时将近1小时，并会跑满CPU，请谨慎测试。
+由于unixbench的测试极其耗资源（cpu和io会长时间处于占满状态），有些IDC禁用，会杀进程或者判断滥用。请谨慎测试。
 
-#二、测试组合推荐
+另外unixbench的测试也极其耗时间，建议大家在screen下运行，screen的使用方法请参考：《[教程：玩机初学者必学linux命令：screen教程/screen命令详解](https://www.91yun.org/archives/873)》
 
-## 1、IO测试、带宽测试、下载测试、全国Ping测试
+# 问题反馈
+欢迎大家到我的博客反馈问题：[91yun](https://www.91yun.org)
 
-wget -N --no-check-certificate https://raw.githubusercontent.com/wn789/91yuntest/master/test.sh
-bash test.sh -i "io,bandwidth,download,allping" -u
-## 2、IO测试、带宽测试、下载测试、全国Ping测试、路由测试、回程路由测试
-
-wget -N --no-check-certificate https://raw.githubusercontent.com/wn789/91yuntest/master/test.sh
-bash test.sh -i "io,bandwidth,download,traceroute,backtraceroute,allping" -u
-## 3、IO测试、带宽测试、下载测试、全国Ping测试、路由测试、回程路由测试、国外Ping测试
-
-wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/91yuntest/master/test.sh
-bash test.sh -i "io,bandwidth,download,traceroute,backtraceroute,allping,gotoping" -u
-
-
-## 由于unixbench的测试极其耗资源（cpu和io会长时间处于占满状态），有些IDC禁用，会杀进程或者判断滥用。请谨慎测试。
-## 另外unixbench的测试也极其耗时间，建议大家在screen下运行。
+[服务器测试一键包反馈页面](https://www.91yun.org/archives/833)
